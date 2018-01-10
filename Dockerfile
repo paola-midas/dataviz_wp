@@ -54,14 +54,16 @@ RUN apt-get update \
 			php7.0-sqlite \
 			php-memcached
 
+# mysql installation
+RUN chmod 755 scripts/mysql.sh
+
 # Wordpress installation
 ADD ./config/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN rm -rf /var/www/
 ADD https://wordpress.org/latest.tar.gz /wordpress.tar.gz
 RUN tar xvzf /wordpress.tar.gz
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /wp-cli.phar
-RUN chmod 755 /cli.sh
-RUN /cli.sh
+
 RUN mv /wordpress /var/www/
 RUN chown -R www-data:www-data /var/www/
 RUN find /var/www -type d -exec chmod 775 {} \;
@@ -70,8 +72,7 @@ RUN find /var/www -type f -exec chmod 664 {} \;
 
 RUN chown www-data:www-data /var/www/wp-config.php
 
-# mysql installation
-RUN chmod 755 /start.sh
+
 
 # Define environment variable
 ENV NAME backend
