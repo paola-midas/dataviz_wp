@@ -1,2 +1,2 @@
 # dataviz_wp
-Wordpress + GraphQL backend + Vue frontend
+Wordpress + Docket + GraphQL backend + Vue frontend
